@@ -1,0 +1,176 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "2018-04-15T17:51:19Z",
+        "title": "test-my-entergy-api"
+    },
+    "host": "mep5tz8x2m.execute-api.us-east-1.amazonaws.com",
+    "basePath": "/test",
+    "schemes": [
+        "https"
+    ],
+    "paths": {
+        "/customer": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "ACCT_NUM",
+                        "in": "query",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {},
+                "security": [
+                    {
+                        "authorizer": [
+                            "email"
+                        ]
+                    }
+                ],
+                "x-amazon-apigateway-integration": {
+                    "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:976003665441:function:my-entergy-api-test-customer/invocations",
+                    "passthroughBehavior": "when_no_match",
+                    "httpMethod": "POST",
+                    "type": "aws_proxy"
+                }
+            },
+            "options": {
+                "consumes": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "headers": {
+                            "Access-Control-Allow-Origin": {
+                                "type": "string"
+                            },
+                            "Access-Control-Allow-Methods": {
+                                "type": "string"
+                            },
+                            "Access-Control-Allow-Credentials": {
+                                "type": "string"
+                            },
+                            "Access-Control-Allow-Headers": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "x-amazon-apigateway-integration": {
+                    "responses": {
+                        "default": {
+                            "statusCode": "200",
+                            "responseParameters": {
+                                "method.response.header.Access-Control-Allow-Credentials": "'false'",
+                                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET'",
+                                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                                "method.response.header.Access-Control-Allow-Origin": "'*'"
+                            }
+                        }
+                    },
+                    "passthroughBehavior": "when_no_match",
+                    "requestTemplates": {
+                        "application/json": "{statusCode:200}"
+                    },
+                    "type": "mock"
+                }
+            }
+        },
+        "/invoice": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "ACCT_NUM",
+                        "in": "query",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "REVENUE_MTH",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "REVENUE_YR",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {},
+                "security": [
+                    {
+                        "authorizer": [
+                            "email"
+                        ]
+                    }
+                ],
+                "x-amazon-apigateway-integration": {
+                    "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:976003665441:function:my-entergy-api-test-invoice/invocations",
+                    "passthroughBehavior": "when_no_match",
+                    "httpMethod": "POST",
+                    "type": "aws_proxy"
+                }
+            },
+            "options": {
+                "consumes": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "headers": {
+                            "Access-Control-Allow-Origin": {
+                                "type": "string"
+                            },
+                            "Access-Control-Allow-Methods": {
+                                "type": "string"
+                            },
+                            "Access-Control-Allow-Credentials": {
+                                "type": "string"
+                            },
+                            "Access-Control-Allow-Headers": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "x-amazon-apigateway-integration": {
+                    "responses": {
+                        "default": {
+                            "statusCode": "200",
+                            "responseParameters": {
+                                "method.response.header.Access-Control-Allow-Credentials": "'false'",
+                                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET'",
+                                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                                "method.response.header.Access-Control-Allow-Origin": "'*'"
+                            }
+                        }
+                    },
+                    "passthroughBehavior": "when_no_match",
+                    "requestTemplates": {
+                        "application/json": "{statusCode:200}"
+                    },
+                    "type": "mock"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "authorizer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header",
+            "x-amazon-apigateway-authtype": "cognito_user_pools",
+            "x-amazon-apigateway-authorizer": {
+                "providerARNs": [
+                    "arn:aws:cognito-idp:us-east-1:976003665441:userpool/us-east-1_FMZLWkYJB"
+                ],
+                "type": "cognito_user_pools"
+            }
+        }
+    }
+}
